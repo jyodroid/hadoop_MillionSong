@@ -16,7 +16,10 @@ public class GuiSearch implements  ActionListener, ItemListener{
     private JTextField titleField, artistField, albumField, durationField, releaseField;
     private JButton searchButton;
     private JToggleButton btsw_selection_artist, btsw_selection_release, btsw_selection_title, btsw_selection_duration, btsw_selection_album;
-
+    private boolean artist = false , title = false, release = false, duration = false, album = false; 
+    private int criteria;
+    private String artistCriteria, titleCriteria, albumCriteria, durationCriteria, releaseCriteria;
+    
     public JPanel createContentPane (){
 
         // We create a bottom JPanel to place everything on.
@@ -192,38 +195,171 @@ public class GuiSearch implements  ActionListener, ItemListener{
 		return totalGUI;
     }
 
+    //TODO modify for search button
     public void actionPerformed(ActionEvent e) {
 
         if(e.getSource() == searchButton)
         {
-            if(titleField.getText().trim().compareTo("Bob") == 0)
-            {
-               // userLabel.setForeground(Color.green);
-                //userLabel.setText("Correct!");
-            }
-            else
-            {
-                //userLabel.setForeground(Color.red);
-                //userLabel.setText("Wrong!");
-            }
+        	if (title){
+        		criteria = criteria + 1;
+        	}
+        	if (artist){
+        		criteria = criteria + 2;
+        	}
+        	if (album){
+        		criteria = criteria + 5;
+        	}
+        	if (duration){
+        		criteria = criteria + 9;
+        	}
+        	if (release){
+        		criteria = criteria + 18;
+        	}
+        	
+        	//Fill criteria whit fields content
+        	titleCriteria = titleField.getText();
+        	artistCriteria = artistField.getText();
+        	albumCriteria = albumField.getText();
+        	durationCriteria = durationField.getText();
+        	releaseCriteria = releaseField.getText();
+        	
+        	switch (criteria) {
+			
+        	case 0:
+        		//TODO no criteria selected throw error or pop up window
+        		break;
+        	
+        	case 1:
+				//TODO search whit song title 
+				break;
+				
+			case 2:
+				artistCriteria = artistField.getText();
+				//TODO search whit artist
+				break;
+				
+			case 3:
+				//TODO search with artist + song title
+				break;
+			
+			case 5: 
+				//TODO search whit album name
+				break;
+				
+			case 6:
+				//TODO search whit song title + album name
+				break;
+				
+			case 7:
+				//TODO search whit album name + artist
+				break;
+				
+			case 8:
+				//TODO search whit album name + artist + song title
+				break;
+				
+			case 9:
+				//TODO search whit song duration
+				break;
+				
+			case 10:
+				//TODO search whit song duration + song title
+				break;
+				
+			case 11:
+				//TODO search whit song duration + artist
+				break;
+				
+			case 12: 
+				//TODO search whit song duration + artist + song title
+				break;
+				
+			case 14:
+				//TODO search whit song duration + album name
+				break;
+				
+			case 17:
+				//TODO search whit song duration + artist + song title + album name
+				break;
+				
+			case 18:
+				//TODO search whit release year
+				break;
+				
+			case 19:
+				//TODO search whit release year + song title
+				break;
+				
+			case 20:
+				//TODO search whit release year + artist
+				break;
+				
+			case 21:
+				//TODO search whit release year + artist + song title
+				break;
+			
+			case 23:
+				//TODO search whit release year + album name
+				break;
+				
+			case 24:
+				//TODO search whit release year + album name + song title
+				break;
+			
+			case 25:
+				//TODO search whit release year  + album name  + artist
+				break;
+			
+			case 26:
+				//TODO search whit release year  + album name  + artist + song title
+				break;
+				
+			case 27:
+				//TODO search whit release year  + song duration
+				break;
+				
+			case 28:
+				//TODO search whit release year  + song duration + song title
+				break;
+				
+			case 29:
+				//TODO search whit release year  + song duration + artist
+				break;
+				
+			case 30:
+				//TODO search whit release year  + song duration + artist + song title
+				break;
+				
+			case 32:
+				//TODO search whit release year  + song duration + album name 
+				break;
+				
+			case 33:
+				//TODO search whit release year  + song duration + album name + song title
+				break;
+				
+			case 34:
+				//TODO search whit release year  + song duration + album name + artist
+				break;
+				
+			case 35:
+				//TODO search whit release year  + song duration + album name + artist + song title
+				break;
 
-            if(artistField.getText().trim().compareTo("Robert") == 0)
-            {
-                //passLabel.setForeground(Color.green);
-                //passLabel.setText("Correct!");
-            }
-            else
-            {
-                //passLabel.setForeground(Color.red);
-                //passLabel.setText("Wrong!");
-            }
-
-            //if((userLabel.getForeground() == Color.green) 
-			//&& (passLabel.getForeground() == Color.green))
-            //{
-            //    titleLabel.setText("Logging in....");
-            //    loginButton.setEnabled(false);
-            //}
+			default:
+				System.out.println("Search option uncaught: "+criteria);
+				break;
+			}
+        	
+        	System.out.println(criteria);
+        	
+        	//Restart global variables
+        	criteria = 0;
+        	titleCriteria = "";
+        	artistCriteria = "";
+        	albumCriteria = "";
+        	durationCriteria = "";
+        	releaseCriteria = "";
         }
     }
 
@@ -247,56 +383,66 @@ public class GuiSearch implements  ActionListener, ItemListener{
 				(e.getStateChange() ==  ItemEvent.SELECTED))
         {
             btsw_selection_title.setText("ON");
+            title = true;
         }
 		if((e.getItemSelectable() == btsw_selection_title)&&
 				(e.getStateChange() == ItemEvent.DESELECTED))
         {
             btsw_selection_title.setText("OFF");
             btsw_selection_title.setBackground(Color.lightGray);
+            title = false;
         }
 		if((e.getItemSelectable() == btsw_selection_artist)&&
 				(e.getStateChange() ==  ItemEvent.SELECTED))
         {
             btsw_selection_artist.setText("ON");
+            artist = true;
         }
 		if((e.getItemSelectable() == btsw_selection_artist)&&
 				(e.getStateChange() == ItemEvent.DESELECTED))
         {
             btsw_selection_artist.setText("OFF");
             btsw_selection_artist.setBackground(Color.lightGray);
+            artist = false;
         }
 		if((e.getItemSelectable() == btsw_selection_album)&&
 				(e.getStateChange() ==  ItemEvent.SELECTED))
         {
             btsw_selection_album.setText("ON");
+            album = true;
         }
 		if((e.getItemSelectable() == btsw_selection_album)&&
 				(e.getStateChange() == ItemEvent.DESELECTED))
         {
             btsw_selection_album.setText("OFF");
             btsw_selection_album.setBackground(Color.lightGray);
+            album = false;
         }
 		if((e.getItemSelectable() == btsw_selection_duration)&&
 				(e.getStateChange() ==  ItemEvent.SELECTED))
         {
             btsw_selection_duration.setText("ON");
+            duration = true;
         }
 		if((e.getItemSelectable() == btsw_selection_duration)&&
 				(e.getStateChange() == ItemEvent.DESELECTED))
         {
             btsw_selection_duration.setText("OFF");
             btsw_selection_duration.setBackground(Color.lightGray);
+            duration = false;
         }
 		if((e.getItemSelectable() == btsw_selection_release)&&
 				(e.getStateChange() ==  ItemEvent.SELECTED))
         {
             btsw_selection_release.setText("ON");
+            release = true;
         }
 		if((e.getItemSelectable() == btsw_selection_release)&&
 				(e.getStateChange() == ItemEvent.DESELECTED))
         {
             btsw_selection_release.setText("OFF");
             btsw_selection_release.setBackground(Color.lightGray);
+            release = false;
         }
 	}
 
